@@ -148,7 +148,7 @@
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 <div class="col">
                     <div class="card border border-0 shadow-lg h-100">
-                        <img src="images/shoes/shoe-1.png" class="card-img-top" alt="...">
+                        <img id="shoe-1" src="images/shoes/shoe-1.png" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Supply 350</h5>
                             <h2>$160</h2>
@@ -156,7 +156,7 @@
                                 additional content. This content is a little bit longer.</p>
                         </div>
                         <div class="m-3">
-                            <div class="btn panda-btn-buy-now">Buy Now</div>
+                            <div id="buy-shoe" class="btn panda-btn-buy-now">Buy Now</div>
                         </div>
                     </div>
                 </div>
@@ -244,14 +244,14 @@
         <!-- Backpack Section End -->
         <!-- Subscribe start -->
         <section style="height: 300px;" class="container rounded-3 d-flex justify-content-center align-items-center panda-bg-info" id="subscribe">
-            <div>
+            <div id="text-display">
                 <h2>LET'S STAY IN TOUCH</h2>
-                <p>Get updates on sales, specials and more</p>
+                <p id="input-text-display">Get updates on sales, specials and more</p>
                 <form>
                     <div class="mb-1">
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="please type email">
                     </div>
-                    <button type="submit" class="btn panda-btn-buy-now">Submit</button>
+                    <button id="btn-update" type="submit" class="btn panda-btn-buy-now" disabled>Submit</button>
                 </form>
             </div>
         </section>
@@ -261,7 +261,100 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+    </script>
+    <script src="js/panda.js"></script>
+    <script>
+        // no-2
+        const allHeadings = document.getElementsByTagName('h2');
+        for(const h2 of allHeadings){
+            console.log(h2.innerText);
+
+            h2.style.color = 'lightblue';
+        }
+
+        // no-3
+        const changeBackground = document.getElementById('backpack');
+        changeBackground.style.backgroundColor = 'tomato';
+
+
+        // no-4
+        const changeBorder = document.getElementsByClassName('card');
+        for(const card of changeBorder){
+            card.style.borderRadius = '30px';
+        }
+
+        // no-5
+        const shoe1Button = document.getElementById('buy-shoe');
+        shoe1Button.onclick = function buyShoe(){
+            console.log('congratulations');
+        }
+
+
+        // no 6
+        const buttons = document.getElementsByClassName('btn panda-btn-buy-now');
+        console.log(buttons);
+        for(const button of buttons){
+            button.addEventListener('click', function(event){
+                event.target.parentNode.parentNode.remove();
+            })
+        }
+
+        // no-7
+        document.getElementById('exampleInputEmail1').addEventListener('keyup', function(event){
+            const text = event.target.value;
+            const submitButton = document.getElementById('btn-update')
+            if(text === 'email'){
+                submitButton.removeAttribute('disabled');
+            }
+            else{
+                submitButton.setAttribute('disabled', true);
+            }
+        })
+        // no-8
+        document.getElementById('shoe-1').addEventListener('mouseenter', function(){
+            console.log(this);
+            // this.src('../images/shoes/shoe-2.png');
+            const image = document.getElementById('shoe-1');
+            // console.log(image);
+            image.src = '../images/shoes/shoe-2.png';
+            
+
+        })
+        document.getElementById('shoe-1').addEventListener('mouseout', function(){
+            console.log(this);
+            // this.src('../images/shoes/shoe-2.png');
+            const image = document.getElementById('shoe-1');
+            // console.log(image);
+            image.src = '../images/shoes/shoe-1.png';
+            
+
+        })
+
+        // no-9
+        const textInfo = document.getElementById('text-display');
+        textInfo.addEventListener('click', makePrevious);
+        function makePrevious(event) {
+            textInfo.style.backgroundColor = '';
+            event.stopPropagation();
+        }
+        const subscribeInfo = document.getElementById('subscribe');
+        subscribeInfo.addEventListener('click', makeCoral);
+        function makeCoral() {
+            subscribeInfo.style.backgroundColor = 'lightcoral';
+        }
+        
+            
+        // document.getElementById('btn-update').addEventListener('click', function(){
+        //     const inputField = document.getElementById('exampleInputEmail1');
+        //     const inputText = inputField.value;
+
+
+        //     const p = document.getElementById('input-text-display');
+        //     p.innerText = inputText;
+        //     inputField.value = '';
+        // })
+    </script>
 </body>
 
 </html>
